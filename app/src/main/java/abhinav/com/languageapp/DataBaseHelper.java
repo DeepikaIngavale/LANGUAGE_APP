@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import static android.os.Build.ID;
 
 public class DataBaseHelper extends SQLiteOpenHelper
@@ -195,9 +197,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.insert(TABLE_ORDER_DETAILS, null, values);
         db.close();
     }
-    public void getAllSentences()
+    public ArrayList<SentenceBean> getAllSentences()
     {
         open();
+        ArrayList<SentenceBean> arrayList=new ArrayList<>();
         Cursor c = db.query(TABLE_SENTENCE_DETAILS, null, null,
                 null, null, null, null);
 
@@ -206,17 +209,28 @@ public class DataBaseHelper extends SQLiteOpenHelper
         {
             c.moveToFirst();
             do{
-                String id = c.getString(c.getColumnIndex(ID));
+                /*String id = c.getString(c.getColumnIndex(ID));
                 String sentence = c.getString(c.getColumnIndex(SENTENCE));
                 System.out.println("ID => "+id);
-                System.out.println("The Sentences In The DataBase => "+sentence);
+                System.out.println("The Sentences In The DataBase => "+sentence);*/
+
+                SentenceBean sentenceBean=new SentenceBean();
+                sentenceBean.setSentence(c.getString(c.getColumnIndex(SENTENCE)));
+                arrayList.add(sentenceBean);
+
             }while (c.moveToNext());
+            /*for (int i=0;i<arrayList.size();i++)
+            {
+                System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
+            }*/
         }
         db.close();
+        return arrayList;
     }
 
     @Override
-    public void onConfigure(SQLiteDatabase db) {
+    public void onConfigure(SQLiteDatabase db)
+    {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
