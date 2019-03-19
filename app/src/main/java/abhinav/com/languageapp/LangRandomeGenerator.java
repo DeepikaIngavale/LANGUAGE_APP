@@ -63,6 +63,10 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             //System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
         }*/
 
+        getSentence=arrayList.get(temp).getSentence();
+        txt_Sentance.setText(getSentence);
+        Words = getSentence.split(" ");
+
 
     }
 
@@ -72,39 +76,36 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     {
         if (view.getId() == R.id.btn_check)
         {
-            if(temp<arrayList.size())
-            {
             EdtSentence = edtxt_SetSentance.getText().toString().trim();
             System.out.println("EDIT TEXT SENTENCE"+EdtSentence);
-
+            Word = EdtSentence.split(" ");
             if(EdtSentence.equals(""))
             {
                 flag=false;
                 Toast.makeText(this, "Enter The Sentence ", Toast.LENGTH_SHORT).show();
             }
-            Words = getSentence.split(" ");
-            Word = EdtSentence.split(" ");
-            if (Word.length != Words.length)
-            {
-                flag = false;
-                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-            }
             else
             {
-
-                for (int i = 0; i < Word.length; i++)
+                if (Word.length != Words.length)
                 {
-                    for (int j = 0; j < Words.length; j++)
+                    flag = false;
+                    Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    for (int i = 0; i < Word.length; i++)
                     {
-                        if (Word[i].equalsIgnoreCase(Words[j]))
+                        for (int j = 0; j < Words.length; j++)
                         {
-                            System.out.println("Word Is =>" + Word[i]);
-                            System.out.println("Word Is =>" + Words[j]);
-                            continue;
-                        } else
-                        {
-                            flag = false;
-                            break;
+                            if (Word[i].equalsIgnoreCase(Words[j]))
+                            {
+                                System.out.println("Word Is =>" + Word[i]);
+                                continue;
+                            } else
+                            {
+                                flag = false;
+                                break;
+                            }
                         }
                     }
                 }
@@ -116,7 +117,9 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             {
                 Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
             }
-            temp++;
+            if(temp<arrayList.size())
+            {
+                temp++;
             }
         }
     }
