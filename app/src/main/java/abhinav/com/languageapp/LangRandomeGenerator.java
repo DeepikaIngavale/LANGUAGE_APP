@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class LangRandomeGenerator extends AppCompatActivity implements View.OnClickListener {
     DataBaseHelper db;
     TextView txt_Sentance;
@@ -15,6 +17,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     Button btn_check;
     String sentence,EdtSentence;
     String[] Words,Word;
+    boolean flag=true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,9 +31,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         btn_check=(Button) findViewById(R.id.btn_check);
         btn_check.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
+
         //db.Sentences();
         //db.Orders();
-        //db.getAllSentences();
+        db.getAllSentences();
+
         sentence=db.getSentence("1");
         txt_Sentance.setText(sentence);
 
@@ -53,6 +59,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view)
     {
+
         /*if(Word.length!=Words.length)
         {
             Toast.makeText(this, "The Answer is not correct", Toast.LENGTH_SHORT).show();
@@ -62,17 +69,35 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             EdtSentence = edtxt_SetSentance.getText().toString().trim();
             System.out.println("EDIT TEXT SENTENCE"+EdtSentence);
             Word = EdtSentence.split(" ");
-
-            for(int i=0;i<Word.length;i++)
+            if (Word.length!=Words.length)
             {
-                for(int j=0;j<Words.length;j++)
+                flag=false;
+                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                for(int i=0;i<Word.length;i++)
                 {
-                    if(Word[i].toLowerCase().equals(Words[j].toLowerCase()))
+                    for(int j=0;j<Words.length;j++)
                     {
-                        System.out.println("Word Is =>"+Word[i]);
-                        continue;
+                        if(Word[i].equalsIgnoreCase(Words[j]))
+                        {
+                            System.out.println("Word Is =>"+Word[i]);
+                            continue;
+                        }
+                        else{
+                            flag = false;
+                            break;
+                        }
                     }
                 }
+            }
+            if (!flag)
+            {
+                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+            } else
+                {
+                Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -26,6 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String ORDER = "orderS";
     public static final String SENTENCEID = "sentenceid";
     private static final String WORD = "word";
+    public String[] SentenceList;
 
     public DataBaseHelper(@Nullable Context context)
     {
@@ -208,7 +209,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 String id = c.getString(c.getColumnIndex(ID));
                 String sentence = c.getString(c.getColumnIndex(SENTENCE));
                 System.out.println("ID => "+id);
-                System.out.println("SENTENCE => "+sentence);
+                System.out.println("The Sentences In The DataBase => "+sentence);
             }while (c.moveToNext());
         }
         db.close();
