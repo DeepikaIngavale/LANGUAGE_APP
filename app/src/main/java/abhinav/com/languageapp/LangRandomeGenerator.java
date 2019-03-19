@@ -82,7 +82,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             if(EdtSentence.equals(""))
             {
                 flag=false;
-                Toast.makeText(this, "Enter The Sentence ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter The Sentence ", Toast.LENGTH_LONG).show();
             }
             else
             {
