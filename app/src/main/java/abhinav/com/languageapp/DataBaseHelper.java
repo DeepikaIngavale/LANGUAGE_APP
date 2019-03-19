@@ -213,4 +213,28 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
     }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    public String getSentence(String id)
+    {
+        String sentence=null;
+        open();
+        Cursor c=db.query(TABLE_SENTENCE_DETAILS,null,
+                ID+"=?",new String[]{id},null,null,null);
+        int returned_row=c.getCount();
+        if(returned_row>0)
+        {
+            c.moveToFirst();
+           sentence= c.getString(c.getColumnIndex(SENTENCE));
+            System.out.println("SENTENCE =>=> "+sentence);
+        }
+        c.close();
+        db.close();
+        return sentence;
+    }
 }

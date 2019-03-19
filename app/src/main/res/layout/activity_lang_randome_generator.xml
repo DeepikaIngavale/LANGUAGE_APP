@@ -8,8 +8,10 @@
     <TextView
         android:id="@+id/txt_Sentance"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="30dp"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:text="Sentence Will Appear here"/>
     <EditText
         android:id="@+id/edtxt_SetSentance"
@@ -17,6 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textStyle="bold"
         android:hint="Sentence Will Set Here"/>
-
+    <Button
+        android:id="@+id/btn_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHECK"
+        android:layout_margin="70dp"
+        android:layout_gravity="bottom|center"/>
 </FrameLayout>
