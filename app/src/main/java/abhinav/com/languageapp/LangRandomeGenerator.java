@@ -15,7 +15,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     TextView txt_Sentance;
     EditText edtxt_SetSentance;
     Button btn_check;
-    String getSentence,EdtSentence;
+    String getSentence,sentence,EdtSentence;
     String[] Words,Word;
     boolean flag=true;
     ArrayList<SentenceBean> arrayList;
@@ -62,53 +62,64 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         {
             //System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
         }*/
+        getSentence = arrayList.get(temp).getSentence();
+        txt_Sentance.setText(getSentence);
+        Words = getSentence.split(" ");
     }
 
 
     @Override
-    public void onClick(View view)
-    {
-        getSentence=arrayList.get(temp).getSentence();
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.btn_check) {
+            EdtSentence = edtxt_SetSentance.getText().toString().trim();
+            System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
+
+            Word = EdtSentence.split(" ");
+
+            if (Word.length != Words.length) {
+                flag = false;
+                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+            }
+            for (int i = 0; i < Word.length; i++) {
+                for (int j = 0; j < Words.length; j++) {
+                    if (Word[i].equalsIgnoreCase(Words[j])) {
+                        break;
+                    } else {
+                        //flag = false;
+                        System.out.println("Word Is =>" + Word[i]);
+                        continue;
+                    }
+                }
+            }
+            if (!flag) {
+                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
+            }
+            if (temp < arrayList.size()) {
+                temp++;
+            }
+        }
+
+        /*getSentence=arrayList.get(temp).getSentence();
         txt_Sentance.setText(getSentence);
         Words = getSentence.split(" ");
         for(int i=0;i<Words.length;i++)
         {
             System.out.println("WORD OF TEXTVIEW => " + Words[i]);
         }
+        EdtSentence = edtxt_SetSentance.getText().toString().trim();
+        System.out.println("EDIT TEXT SENTENCE"+EdtSentence);
         if (view.getId() == R.id.btn_check)
         {
-            EdtSentence = edtxt_SetSentance.getText().toString().trim();
-            System.out.println("EDIT TEXT SENTENCE"+EdtSentence);
             Word = EdtSentence.split(" ");
-            /*for(int i=0;i<Words.length;i++)
+            for(int i=0;i<Words.length;i++)
             {
                 System.out.println("WORDS => " + Words[i]);
-            }*/
-
-            for (int i = 0; i < Word.length; i++)
-            {
-                for (int j = 0; j < Words.length; j++)
-                {
-                    if (Word[i].equalsIgnoreCase(Words[j]))
-                    {
-                        System.out.println("Word Is =>" + Word[i]);
-                        continue;
-                    } else
-                    {
-                        flag = false;
-                        break;
-                    }
-                }
-            }
-            if (!flag)
-            {
-                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-            } else
-            {
-                Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
             }
 
-           /* if(EdtSentence.equals(""))
+           *//* if(EdtSentence.equals(""))
             {
                 flag=false;
                 Toast.makeText(this, "Enter The Sentence ", Toast.LENGTH_LONG).show();
@@ -145,11 +156,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             } else
             {
                 Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
-            }*/
+            }*//*
             if(temp<arrayList.size())
             {
                 temp++;
             }
-        }
+        }*/
     }
 }
