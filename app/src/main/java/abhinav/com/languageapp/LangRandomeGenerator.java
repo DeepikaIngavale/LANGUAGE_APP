@@ -62,42 +62,52 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         {
             //System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
         }*/
-        getSentence = arrayList.get(temp).getSentence();
-        txt_Sentance.setText(getSentence);
-        Words = getSentence.split(" ");
+
     }
 
 
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.btn_check) {
-            EdtSentence = edtxt_SetSentance.getText().toString().trim();
-            System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
+        if (view.getId() == R.id.btn_check)
+        {
+            for(int x=0;x<arrayList.size();x++)
+            {
+                getSentence = arrayList.get(temp).getSentence();
+                txt_Sentance.setText(getSentence);
+                Words = getSentence.split(" ");
 
-            Word = EdtSentence.split(" ");
+                EdtSentence = edtxt_SetSentance.getText().toString().trim();
+                System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
+                Word = EdtSentence.split(" ");
 
-            if (Word.length != Words.length) {
-                flag = false;
-                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-            }
-            for (int i = 0; i < Word.length; i++) {
-                for (int j = 0; j < Words.length; j++) {
-                    if (Word[i].equalsIgnoreCase(Words[j])) {
-                        break;
+                if(EdtSentence.equals(" "))
+                {
+
+
+                    if (Word.length != Words.length) {
+                        flag = false;
+                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+                    }
+                    for (int i = 0; i < Word.length; i++) {
+                        for (int j = 0; j < Words.length; j++) {
+                            if (Word[i].equalsIgnoreCase(Words[j])) {
+                                continue;
+                            } else {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!flag) {
+                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
                     } else {
-                        //flag = false;
-                        System.out.println("Word Is =>" + Word[i]);
-                        continue;
+                        Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-            if (!flag) {
-                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
-            }
-            if (temp < arrayList.size()) {
+            if(temp<arrayList.size())
+            {
                 temp++;
             }
         }
