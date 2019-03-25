@@ -1,14 +1,18 @@
 package abhinav.com.languageapp;
 
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class LangRandomeGenerator extends AppCompatActivity implements View.OnClickListener {
     DataBaseHelper db;
@@ -18,8 +22,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     String getSentence,sentence,EdtSentence;
     String[] Words,Word;
     boolean flag=true;
+    ImageView imgv_speak;
+    private TextToSpeech textToSpeech;
     ArrayList<SentenceBean> arrayList;
     int temp=0;
+    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,14 +37,106 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
         edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
+        imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
         btn_check=(Button) findViewById(R.id.btn_check);
         btn_check.setOnClickListener(this);
+        imgv_speak.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
+
+        /*db.Sentences();
+        Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();*/
+
         arrayList=db.getAllSentences();
 
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
+        {
+            @Override
+            public void onInit(int status)
+            {
+                if (status == TextToSpeech.SUCCESS)
+                {
+                    int ttsLang = textToSpeech.setLanguage(Locale.US);
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED)
+                    {
+                        Log.e("TTS", "The Language is not supported!");
+                    }
+                    else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-        //db.Sentences();
-        //db.Orders();
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.btn_check)
+        {
+                getSentence = arrayList.get(temp).getSentence();
+                txt_Sentance.setText("");
+                txt_Sentance.setText(getSentence);
+                int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
+                if (speechStatus == TextToSpeech.ERROR)
+                {
+                     Log.e("TTS", "Error in converting Text to Speech!");
+                }
+                Words = getSentence.split(" ");
+
+                flag=Check();
+                if(!EdtSentence.equals("")) {
+                    if (!flag) {
+                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            if(temp<arrayList.size()-1)
+            {
+                EdtSentence=edtxt_SetSentance.getText().toString().trim();
+                System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
+                Word=EdtSentence.split(" ");
+                temp++;
+                edtxt_SetSentance.setText("");
+            }
+        }
+    }
+    public boolean Check()
+    {
+        for (int i = 0; i < Word.length; i++)
+        {
+            for (int j = 0; j < Words.length; j++)
+            {
+                if (Word[i].equalsIgnoreCase(Words[j]))
+                {
+                    continue;
+                } else {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+    @Override
+    public void onDestroy()
+    { super.onDestroy();
+        if (textToSpeech != null)
+        {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+    }
+}
+
+
+
+//db.Sentences();
+//db.Orders();
 
         /*sentence=db.getSentence("1");
         txt_Sentance.setText(sentence);
@@ -54,7 +153,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             System.out.println("WORDS => " + Words[i]);
         }*/
 
-        //Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();
+//Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();
        /* dbSentence.getAllSentences();
         Toast.makeText(this, "sentences", Toast.LENGTH_SHORT).show();*/
 
@@ -63,29 +162,18 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             //System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
         }*/
 
-    }
 
 
-    @Override
-    public void onClick(View view) {
-
-        if (view.getId() == R.id.btn_check)
-        {
-            for(int x=0;x<arrayList.size();x++)
+ /*for(int x=0;x<arrayList.size()-1;x++)
             {
-                getSentence = arrayList.get(temp).getSentence();
-                txt_Sentance.setText(getSentence);
-                Words = getSentence.split(" ");
-
                 EdtSentence = edtxt_SetSentance.getText().toString().trim();
                 System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
                 Word = EdtSentence.split(" ");
 
                 if(EdtSentence.equals(" "))
                 {
-
-
-                    if (Word.length != Words.length) {
+                    if (Word.length != Words.length)
+                    {
                         flag = false;
                         Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
                     }
@@ -105,14 +193,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                         Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-            if(temp<arrayList.size())
-            {
-                temp++;
-            }
-        }
+            }*/
 
-        /*getSentence=arrayList.get(temp).getSentence();
+
+
+/*getSentence=arrayList.get(temp).getSentence();
         txt_Sentance.setText(getSentence);
         Words = getSentence.split(" ");
         for(int i=0;i<Words.length;i++)
@@ -172,5 +257,47 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 temp++;
             }
         }*/
+
+/*textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
+{
+@Override
+public void onInit(int status)
+{
+if (status == TextToSpeech.SUCCESS)
+{
+int ttsLang = textToSpeech.setLanguage(Locale.US);
+ if (ttsLang == TextToSpeech.LANG_MISSING_DATA || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED)
+  {
+  Log.e("TTS", "The Language is not supported!");
+  }
+  else {
+   Log.i("TTS", "Language Supported.");
     }
-}
+    Log.i("TTS", "Initialization success.");
+    }
+    else {
+    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+    }
+    }
+     });
+      btn.setOnClickListener(new View.OnClickListener()
+      {
+      @Override
+       public void onClick(View arg0)
+       {
+       String data = editText.getText().toString();
+        Log.i("TTS", "button clicked: " + data);
+        int speechStatus = textToSpeech.speak(data, TextToSpeech.QUEUE_FLUSH, null);
+        if (speechStatus == TextToSpeech.ERROR)
+         {
+         Log.e("TTS", "Error in converting Text to Speech!");
+         } } });
+         }
+         @Override
+         public void onDestroy()
+         { super.onDestroy();
+          if (textToSpeech != null)
+           {
+           textToSpeech.stop();
+           textToSpeech.shutdown();
+           } }*/

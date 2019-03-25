@@ -70,7 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         /*values.put(ID, "1");
         values.put(SENTENCE, "A Sentence is full of values");*/
 
-       /* values.put(ID, "2");
+        /*values.put(ID, "2");
         values.put(SENTENCE, "Have a beautiful Page");*/
 
         /*values.put(ID, "3");
