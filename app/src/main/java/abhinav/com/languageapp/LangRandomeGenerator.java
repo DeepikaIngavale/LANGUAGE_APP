@@ -87,6 +87,10 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
                 Words = getSentence.split(" ");
 
+                EdtSentence=edtxt_SetSentance.getText().toString().trim();
+                System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
+                Word=EdtSentence.split(" ");
+
                 flag=Check();
                 if(!EdtSentence.equals("")) {
                     if (!flag) {
@@ -97,9 +101,6 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
             if(temp<arrayList.size()-1)
             {
-                EdtSentence=edtxt_SetSentance.getText().toString().trim();
-                System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
-                Word=EdtSentence.split(" ");
                 temp++;
                 edtxt_SetSentance.setText("");
             }
@@ -107,11 +108,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     }
     public boolean Check()
     {
-        for (int i = 0; i < Word.length; i++)
+        for (int i = 0; i < Words.length; i++)
         {
-            for (int j = 0; j < Words.length; j++)
+            for (int j = 0; j < Word.length; j++)
             {
-                if (Word[i].equalsIgnoreCase(Words[j]))
+                if (Words[i].contains(Word[j]))
                 {
                     continue;
                 } else {
