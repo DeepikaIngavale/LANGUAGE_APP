@@ -26,7 +26,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     private TextToSpeech textToSpeech;
     ArrayList<SentenceBean> arrayList;
     int temp=0;
-    int i;
+    int i,iCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +39,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
         imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
         btn_check=(Button) findViewById(R.id.btn_check);
+
         btn_check.setOnClickListener(this);
         imgv_speak.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
@@ -70,6 +71,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
             }
         });
+        txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
     }
 
     @Override
@@ -77,27 +79,61 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         if (view.getId() == R.id.btn_check)
         {
-                getSentence = arrayList.get(temp).getSentence();
-                txt_Sentance.setText("");
-                txt_Sentance.setText(getSentence);
-                int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
+                /*int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
                 if (speechStatus == TextToSpeech.ERROR)
                 {
                      Log.e("TTS", "Error in converting Text to Speech!");
                 }
-                Words = getSentence.split(" ");
+               */
+                txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
+                String Sentence = arrayList.get(temp).getSentence().trim();
 
                 EdtSentence=edtxt_SetSentance.getText().toString().trim();
-                System.out.println("EDIT TEXT SENTENCE" + EdtSentence);
-                Word=EdtSentence.split(" ");
+                Words = Sentence.split(" ");
+                Word = EdtSentence.split(" ");
 
-                flag=Check();
-                if(!EdtSentence.equals("")) {
-                    if (!flag) {
-                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-                    } else {
+                if(!EdtSentence.equals(""))
+                {
+                    for(int i=0;i< Word.length;i++)
+                    {
+                        for (int j=0;j<Words.length;j++)
+                        {
+                            if(Word[i].equalsIgnoreCase(Words[j]))
+                            {
+                                iCnt++;
+                            }
+                        }
+                    }
+                    if(Word.length==iCnt)
+                    {
+                        Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
+                    }
+
+                   /* String Sentence = arrayList.get(temp).getSentence();
+                    int icnt=0;
+                    for(int i=0;i<Sentence.length();i++)
+                    {
+                        if(Sentence.contains(Word[i]))
+                        {
+                            icnt++;
+                        }
+                    }
+                    if(icnt==Sentence.length())
+                    {
                         Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
                     }
+                    else
+                    {
+                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+                    }*/
+                }
+                else
+                {
+                    Toast.makeText(this, "Enter Sentence", Toast.LENGTH_SHORT).show();
                 }
             if(temp<arrayList.size()-1)
             {
