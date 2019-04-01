@@ -84,6 +84,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         open();
         ContentValues values = new ContentValues();
+
         /*values.put(id, 1);
         values.put(ORDER, 1);
         values.put(WORD, "A");
@@ -114,12 +115,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(WORD, "values");
         values.put(SENTENCEID, 1);*/
 
-       /* values.put(id, 7);
+        /*values.put(id, 7);
         values.put(ORDER, 1);
         values.put(WORD, "Have");
         values.put(SENTENCEID, 2);*/
 
-        /*values.put(id, 8);
+       /* values.put(id, 8);
         values.put(ORDER, 2);
         values.put(WORD, "a");
         values.put(SENTENCEID, 2);*/

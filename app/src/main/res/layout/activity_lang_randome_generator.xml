@@ -9,24 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1">
         <TextView
             android:id="@+id/txt_Sentance"
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_weight="1"
+            android:visibility="gone"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:text="Sentence Will Appear here"/>
         <ImageView
             android:id="@+id/imgv_speak"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:src="@drawable/ic_keyboard_voice_black_24dp" />
+            android:src="@drawable/voice" />
     </LinearLayout>
     <EditText
         android:id="@+id/edtxt_SetSentance"

@@ -44,7 +44,10 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         imgv_speak.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
 
-        /*db.Sentences();
+        db.Sentences();
+        Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();
+
+       /* db.Orders();
         Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();*/
 
         arrayList=db.getAllSentences();
@@ -71,7 +74,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
             }
         });
-        txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
+       // txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
     }
 
     @Override
@@ -79,15 +82,15 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         if (view.getId() == R.id.btn_check)
         {
-                /*int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
-                if (speechStatus == TextToSpeech.ERROR)
-                {
-                     Log.e("TTS", "Error in converting Text to Speech!");
-                }
-               */
-                txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
-                String Sentence = arrayList.get(temp).getSentence().trim();
 
+            getSentence=arrayList.get(0).getSentence();
+            //txt_Sentance.setText(arrayList.get(0).getSentence());
+            int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
+            if (speechStatus == TextToSpeech.ERROR)
+            {
+                Log.e("TTS", "Error in converting Text to Speech!");
+            }
+                String Sentence = arrayList.get(0).getSentence();
                 EdtSentence=edtxt_SetSentance.getText().toString().trim();
                 Words = Sentence.split(" ");
                 Word = EdtSentence.split(" ");
@@ -104,6 +107,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                             }
                         }
                     }
+
                     if(Word.length==iCnt)
                     {
                         Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
@@ -112,6 +116,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                     {
                         Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
                     }
+                    iCnt=0;
 
                    /* String Sentence = arrayList.get(temp).getSentence();
                     int icnt=0;
