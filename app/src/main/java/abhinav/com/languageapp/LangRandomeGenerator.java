@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     DataBaseHelper db;
     TextView txt_Sentance;
     EditText edtxt_SetSentance;
+    LinearLayout mylinearlayout;
     Button btn_check;
     String getSentence,sentence,EdtSentence;
     String[] Words,Word;
@@ -38,6 +40,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
         edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
         imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
+        mylinearlayout=(LinearLayout)findViewById(R.id.mylinearlayout);
         btn_check=(Button) findViewById(R.id.btn_check);
 
         btn_check.setOnClickListener(this);
@@ -74,6 +77,23 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
             }
         });
+        final int N = 10; // total number of textviews to add
+
+        final TextView[] myTextViews = new TextView[N]; // create an empty array;
+
+        for (int i = 0; i < N; i++) {
+            // create a new textview
+            final TextView rowTextView = new TextView(this);
+
+            // set some properties of rowTextView or something
+            rowTextView.setText("This is row #" + i);
+
+            // add the textview to the linearlayout
+            mylinearlayout.addView(rowTextView);
+
+            // save a reference to the textview for later
+            myTextViews[i] = rowTextView;
+        }
        // txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
     }
 
