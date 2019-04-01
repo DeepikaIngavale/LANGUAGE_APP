@@ -22,11 +22,12 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     LinearLayout mylinearlayout;
     Button btn_check;
     String getSentence,sentence,EdtSentence;
-    String[] Words,Word;
+    String[] Words,Word,ArrayWord;
     boolean flag=true;
     ImageView imgv_speak;
     private TextToSpeech textToSpeech;
     ArrayList<SentenceBean> arrayList;
+    ArrayList<SentenceBean>   arrayListWord;
     int temp=0;
     int i,iCnt;
 
@@ -54,6 +55,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();*/
 
         arrayList=db.getAllSentences();
+        arrayListWord=db.getAllWords();
+        for(int i=0;i<arrayListWord.size();i++)
+        {
+            System.out.println("ARRAY OF WORS =>" + arrayListWord.get(i).getOder());
+        }
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
         {
@@ -79,14 +85,14 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         });
         final int N = 10; // total number of textviews to add
 
-        final TextView[] myTextViews = new TextView[N]; // create an empty array;
+        final TextView[] myTextViews = new TextView[arrayListWord.size()]; // create an empty array;
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < arrayListWord.size(); i++) {
             // create a new textview
             final TextView rowTextView = new TextView(this);
 
             // set some properties of rowTextView or something
-            rowTextView.setText("This is row #" + i);
+            rowTextView.setText(arrayListWord.get(i).getOder());
 
             // add the textview to the linearlayout
             mylinearlayout.addView(rowTextView);

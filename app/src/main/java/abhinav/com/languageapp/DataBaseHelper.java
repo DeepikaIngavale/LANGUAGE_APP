@@ -233,6 +233,36 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return arrayList;
     }
 
+    public ArrayList<SentenceBean> getAllWords()
+    {
+        open();
+        ArrayList<SentenceBean> arrayList=new ArrayList<>();
+        Cursor c = db.query(TABLE_ORDER_DETAILS, null, null,
+                null, null, null, null);
+
+        int returned_rows = c.getCount();
+        if(returned_rows>0)
+        {
+            c.moveToFirst();
+            do{
+                /*String id = c.getString(c.getColumnIndex(ID));
+                String sentence = c.getString(c.getColumnIndex(SENTENCE));
+                System.out.println("ID => "+id);
+                System.out.println("The Sentences In The DataBase => "+sentence);*/
+
+                SentenceBean sentenceBean=new SentenceBean();
+                sentenceBean.setOder(c.getString(c.getColumnIndex(WORD)));
+                arrayList.add(sentenceBean);
+
+            }while (c.moveToNext());
+            /*for (int i=0;i<arrayList.size();i++)
+            {
+                System.out.println("The Sentences In The DataBase => "+arrayList.get(i).getSentence());
+            }*/
+        }
+        db.close();
+        return arrayList;
+    }
     @Override
     public void onConfigure(SQLiteDatabase db)
     {
