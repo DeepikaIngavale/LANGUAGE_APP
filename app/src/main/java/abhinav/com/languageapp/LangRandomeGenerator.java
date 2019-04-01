@@ -44,9 +44,9 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         imgv_speak.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
 
-        db.Sentences();
+        /*db.Sentences();
         Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();
-
+*/
        /* db.Orders();
         Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();*/
 

@@ -160,7 +160,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(WORD, "your");
         values.put(SENTENCEID, 3);*/
 
-        /*values.put(id, 16);
+       /* values.put(id, 16);
         values.put(ORDER, 6);
         values.put(WORD, "life");
         values.put(SENTENCEID, 3);*/
@@ -185,7 +185,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(WORD, "Different");
         values.put(SENTENCEID, 3);*/
 
-        /*values.put(id, 21);
+       /* values.put(id, 21);
         values.put(ORDER, 11);
         values.put(WORD, "You");
         values.put(SENTENCEID, 3);*/
@@ -195,6 +195,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(WORD, "You");
         values.put(SENTENCEID, 4);*/
 
+       /* values.put(id, 22);
+        values.put(ORDER, 1);
+        values.put(WORD, "You");
+        values.put(SENTENCEID, 5);*/
         db.insert(TABLE_ORDER_DETAILS, null, values);
         db.close();
     }

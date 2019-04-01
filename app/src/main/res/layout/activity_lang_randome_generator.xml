@@ -25,7 +25,7 @@
             android:layout_height="150dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:src="@drawable/voice" />
+            android:src="@drawable/ic_keyboard_voice_black_24dp" />
     </LinearLayout>
     <EditText
         android:id="@+id/edtxt_SetSentance"
