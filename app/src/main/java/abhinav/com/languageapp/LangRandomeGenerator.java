@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class LangRandomeGenerator extends AppCompatActivity implements View.OnClickListener {
     DataBaseHelper db;
@@ -28,6 +30,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     private TextToSpeech textToSpeech;
     ArrayList<SentenceBean> arrayList;
     ArrayList<SentenceBean>   arrayListWord;
+    ArrayList<SentenceBean>   arrayListWordNew;
     int temp=0;
     int i,iCnt;
 
@@ -85,19 +88,19 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             }
         });
 
-        final int N = 10; // total number of textviews to add
+        final int N = 6; // total number of textviews to add
 
         final TextView[] myTextViews = new TextView[arrayListWord.size()]; // create an empty array;
-
-        for (int i = 0; i < arrayListWord.size(); i++)
+        arrayListWordNew=getRandomElement(arrayListWord,N);
+        for (int i = 0; i < arrayListWordNew.size(); i++)
         {
             // create a new textview
             final TextView rowTextView = new TextView(this);
 
             // set some properties of rowTextView or something
-            rowTextView.setText(arrayListWord.get(i).getOder());
+            rowTextView.setText(arrayListWordNew.get(i).getOder());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(15,15,15,15);
+            params.setMargins(5,5,5,5);
             rowTextView.setPadding(15,15,15,15);
             rowTextView.setLayoutParams(params);
             // add the textview to the linearlayout
@@ -108,7 +111,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onClick(View v)
                 {
-                    edtxt_SetSentance.setText(rowTextView.getText());
+                    edtxt_SetSentance.setText(rowTextView.getText() + " ");
                 }
             });
 
@@ -213,6 +216,27 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             textToSpeech.stop();
             textToSpeech.shutdown();
         }
+    }
+    public ArrayList<SentenceBean> getRandomElement(ArrayList<SentenceBean> list,int totalItems)
+    {
+        Random rand = new Random();
+
+        // create a temporary list for storing
+        // selected element
+        ArrayList<SentenceBean> newList = new ArrayList<>();
+        for (int i = 0; i < totalItems; i++) {
+
+            // take a raundom index between 0 to size
+            // of given List
+            int randomIndex = rand.nextInt(list.size());
+
+            // add element in temporary list
+            newList.add(list.get(randomIndex));
+
+            // Remove selected element from orginal list
+            list.remove(randomIndex);
+        }
+        return newList;
     }
 }
 
