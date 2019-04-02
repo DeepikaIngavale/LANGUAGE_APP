@@ -287,4 +287,25 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
         return sentence;
     }
+    public ArrayList<SentenceBean> getWord(String id)
+    {
+        open();
+        ArrayList<SentenceBean> arrayListWord=new ArrayList<>();
+        Cursor c=db.query(TABLE_ORDER_DETAILS,null,
+                SENTENCEID+"=?",new String[]{id},null,null,null);
+        int returned_row=c.getCount();
+        if(returned_row>0)
+        {
+            c.moveToFirst();
+            do{
+                SentenceBean sentenceBean=new SentenceBean();
+                sentenceBean.setOder(c.getString(c.getColumnIndex(WORD)));
+                arrayListWord.add(sentenceBean);
+
+            }while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return arrayListWord;
+    }
 }

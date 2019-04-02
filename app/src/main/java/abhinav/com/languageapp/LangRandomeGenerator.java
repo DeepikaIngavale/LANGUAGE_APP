@@ -55,7 +55,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         Toast.makeText(this, "insert_success", Toast.LENGTH_SHORT).show();*/
 
         arrayList=db.getAllSentences();
-        arrayListWord=db.getAllWords();
+        //arrayListWord=db.getAllWords();
+        arrayListWord=db.getWord("1");
         for(int i=0;i<arrayListWord.size();i++)
         {
             System.out.println("ARRAY OF WORS =>" + arrayListWord.get(i).getOder());
@@ -83,19 +84,33 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 }
             }
         });
+
         final int N = 10; // total number of textviews to add
 
         final TextView[] myTextViews = new TextView[arrayListWord.size()]; // create an empty array;
 
-        for (int i = 0; i < arrayListWord.size(); i++) {
+        for (int i = 0; i < arrayListWord.size(); i++)
+        {
             // create a new textview
             final TextView rowTextView = new TextView(this);
 
             // set some properties of rowTextView or something
             rowTextView.setText(arrayListWord.get(i).getOder());
-
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(15,15,15,15);
+            rowTextView.setPadding(15,15,15,15);
+            rowTextView.setLayoutParams(params);
             // add the textview to the linearlayout
             mylinearlayout.addView(rowTextView);
+
+            rowTextView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    edtxt_SetSentance.setText(rowTextView.getText());
+                }
+            });
 
             // save a reference to the textview for later
             myTextViews[i] = rowTextView;
@@ -106,43 +121,43 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.btn_check)
+        if(view.getId()==R.id.imgv_speak)
         {
-
             getSentence=arrayList.get(0).getSentence();
-            //txt_Sentance.setText(arrayList.get(0).getSentence());
             int speechStatus = textToSpeech.speak(getSentence, TextToSpeech.QUEUE_FLUSH, null);
             if (speechStatus == TextToSpeech.ERROR)
             {
                 Log.e("TTS", "Error in converting Text to Speech!");
             }
-                String Sentence = arrayList.get(0).getSentence();
-                EdtSentence=edtxt_SetSentance.getText().toString().trim();
-                Words = Sentence.split(" ");
-                Word = EdtSentence.split(" ");
-
-                if(!EdtSentence.equals(""))
+        }
+        if (view.getId() == R.id.btn_check)
+        {
+            String Sentence = arrayList.get(0).getSentence();
+            EdtSentence=edtxt_SetSentance.getText().toString().trim();
+            Words = Sentence.split(" ");
+            Word = EdtSentence.split(" ");
+            if(!EdtSentence.equals(""))
+            {
+                for(int i=0;i< Word.length;i++)
                 {
-                    for(int i=0;i< Word.length;i++)
+                    for (int j=0;j<Words.length;j++)
                     {
-                        for (int j=0;j<Words.length;j++)
+                        if(Word[i].equalsIgnoreCase(Words[j]))
                         {
-                            if(Word[i].equalsIgnoreCase(Words[j]))
-                            {
-                                iCnt++;
-                            }
+                            iCnt++;
                         }
                     }
+                }
 
-                    if(Word.length==iCnt)
-                    {
-                        Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
-                    }
-                    iCnt=0;
+                if(Word.length==iCnt)
+                {
+                    Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
+                }
+                iCnt=0;
 
                    /* String Sentence = arrayList.get(temp).getSentence();
                     int icnt=0;
