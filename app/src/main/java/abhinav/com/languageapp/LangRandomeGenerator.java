@@ -112,13 +112,18 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 public void onClick(View v)
                 {
                     edtxt_SetSentance.append(rowTextView.getText()+" ");
+                    System.out.println("set values =>"+edtxt_SetSentance.getText());
+                    rowTextView.setClickable(false);
                     //edtxt_SetSentance.setText(rowTextView.getText() + " ");
                 }
             });
 
             // save a reference to the textview for later
             myTextViews[i] = rowTextView;
+
         }
+
+
     }
 
     @Override
