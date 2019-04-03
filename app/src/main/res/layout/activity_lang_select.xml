@@ -21,8 +21,8 @@
         android:layout_gravity="center">
         <ImageView
             android:id="@+id/imgv_speak"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:background="@null"
             android:layout_gravity="center"
             android:src="@drawable/ic_keyboard_voice_black_24dp"/>

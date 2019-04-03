@@ -39,17 +39,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:text="Get Started"
+            android:text="Listen And Select Answer"
             android:layout_margin="10dp"
             android:textColor="@color/white" />
         <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_speech2Text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lightestblack"
-            android:padding="15dp"
-            android:text="I ALREADY HAVE AN ACCOUNT"
-            android:layout_gravity="center"
+            android:background="@color/colorAccent"
+            android:text="Speech To Text"
+            android:layout_margin="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
 </FrameLayout>
