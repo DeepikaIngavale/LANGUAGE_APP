@@ -111,14 +111,14 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onClick(View v)
                 {
-                    edtxt_SetSentance.setText(rowTextView.getText() + " ");
+                    edtxt_SetSentance.append(rowTextView.getText()+" ");
+                    //edtxt_SetSentance.setText(rowTextView.getText() + " ");
                 }
             });
 
             // save a reference to the textview for later
             myTextViews[i] = rowTextView;
         }
-       // txt_Sentance.setText(arrayList.get(temp).getSentence().trim());
     }
 
     @Override
@@ -139,74 +139,47 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             EdtSentence=edtxt_SetSentance.getText().toString().trim();
             Words = Sentence.split(" ");
             Word = EdtSentence.split(" ");
+
             if(!EdtSentence.equals(""))
             {
-                for(int i=0;i< Word.length;i++)
+                if (Word.length != Words.length)
                 {
-                    for (int j=0;j<Words.length;j++)
-                    {
-                        if(Word[i].equalsIgnoreCase(Words[j]))
-                        {
-                            iCnt++;
-                        }
-                    }
-                }
-
-                if(Word.length==iCnt)
-                {
-                    Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
+                    flag = false;
+                    Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
-                }
-                iCnt=0;
-
-                   /* String Sentence = arrayList.get(temp).getSentence();
-                    int icnt=0;
-                    for(int i=0;i<Sentence.length();i++)
+                    for(int i=0;i< Word.length;i++)
                     {
-                        if(Sentence.contains(Word[i]))
+                        for (int j=0;j<Words.length;j++)
                         {
-                            icnt++;
+                            if(Word[i].equalsIgnoreCase(Words[j]))
+                            {
+                                iCnt++;
+                            }
                         }
                     }
-                    if(icnt==Sentence.length())
+                    if(Word.length==iCnt)
                     {
-                        Toast.makeText(this, "The Sentence Is Correct", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-                    }*/
+                        Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                iCnt=0;
                 }
                 else
                 {
                     Toast.makeText(this, "Enter Sentence", Toast.LENGTH_SHORT).show();
                 }
-            if(temp<arrayList.size()-1)
+           /* if(temp<arrayList.size()-1)
             {
                 temp++;
                 edtxt_SetSentance.setText("");
-            }
+            }*/
         }
-    }
-    public boolean Check()
-    {
-        for (int i = 0; i < Words.length; i++)
-        {
-            for (int j = 0; j < Word.length; j++)
-            {
-                if (Words[i].contains(Word[j]))
-                {
-                    continue;
-                } else {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-        return flag;
     }
     @Override
     public void onDestroy()
