@@ -21,6 +21,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     DataBaseHelper db;
     TextView txt_Sentance;
     EditText edtxt_SetSentance;
+    TextView txt_SetSentance;
     LinearLayout mylinearlayout;
     Button btn_check;
     String getSentence,sentence,EdtSentence;
@@ -42,7 +43,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         arrayList = new ArrayList<>();
 
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
-        edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
+        txt_SetSentance=(TextView)findViewById(R.id.txt_SetSentance);
+       // edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
         imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
         mylinearlayout=(LinearLayout)findViewById(R.id.mylinearlayout);
         btn_check=(Button) findViewById(R.id.btn_check);
@@ -111,8 +113,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onClick(View v)
                 {
-                    edtxt_SetSentance.append(rowTextView.getText()+" ");
-                    System.out.println("set values =>"+edtxt_SetSentance.getText());
+                    txt_SetSentance.append(rowTextView.getText()+" ");
+                    System.out.println("set values =>"+txt_SetSentance.getText());
                     rowTextView.setClickable(false);
                     //edtxt_SetSentance.setText(rowTextView.getText() + " ");
                 }
@@ -141,7 +143,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         if (view.getId() == R.id.btn_check)
         {
             String Sentence = arrayList.get(0).getSentence();
-            EdtSentence=edtxt_SetSentance.getText().toString().trim();
+            EdtSentence=txt_SetSentance.getText().toString().trim();
             Words = Sentence.split(" ");
             Word = EdtSentence.split(" ");
 

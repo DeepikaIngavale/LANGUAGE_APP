@@ -40,8 +40,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <EditText
+               <!-- <EditText
                     android:id="@+id/edtxt_SetSentance"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:hint="Sentence Will Set Here"/>-->
+                <TextView
+                    android:id="@+id/txt_SetSentance"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
