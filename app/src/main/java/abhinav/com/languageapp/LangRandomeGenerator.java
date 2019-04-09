@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-public class LangRandomeGenerator extends AppCompatActivity implements View.OnClickListener {
+public class LangRandomeGenerator extends AppCompatActivity implements View.OnClickListener, OnRecyclerItemClicked {
     DataBaseHelper db;
     TextView txt_Sentance;
     EditText edtxt_SetSentance;
@@ -135,7 +135,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         rv_question.setLayoutManager(staggeredGridLayoutManager);
 
         customAdapter =new CustomAdapter(LangRandomeGenerator.this,arrayListWordNew,
-                rv_question.getId());
+                rv_question.getId(),LangRandomeGenerator.this);
         rv_question.setAdapter(customAdapter);
     }
 
@@ -228,6 +228,12 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             list.remove(randomIndex);
         }
         return newList;
+    }
+
+    @Override
+    public void onRecyclerItemClicked(int recycler_id, int position, Object item)
+    {
+        Toast.makeText(this, "Clicked Position "+position, Toast.LENGTH_SHORT).show();
     }
 }
 

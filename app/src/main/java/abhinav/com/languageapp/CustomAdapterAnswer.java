@@ -7,20 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>
+public class CustomAdapterAnswer extends RecyclerView.Adapter<CustomAdapterAnswer.MyViewHolder>
 {
     ArrayList<SentenceBean> arrayListWords;
     Context context;
     OnRecyclerItemClicked listner;
     int recycler_id;
 
-    public CustomAdapter(Context context, ArrayList<SentenceBean> arrayListWords,
+    public CustomAdapterAnswer(Context context, ArrayList<SentenceBean> arrayListWords,
                          int recycler_id,OnRecyclerItemClicked listner)
     {
         this.context = context;
@@ -30,17 +27,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public CustomAdapterAnswer.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         // infalte the item Layout
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayoutans, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        MyViewHolder vh = new MyViewHolder(v); // pass the view to View Holder
+        CustomAdapterAnswer.MyViewHolder vh = new CustomAdapterAnswer.MyViewHolder(v); // pass the view to View Holder
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position)
+    public void onBindViewHolder(@NonNull CustomAdapterAnswer.MyViewHolder holder, final int position)
     {
 
         holder.btn_word.setText(""+arrayListWords.get(position).getOder());
@@ -70,5 +67,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             btn_word=(Button)itemView.findViewById(R.id.btn_word);
         }
     }
-
 }
