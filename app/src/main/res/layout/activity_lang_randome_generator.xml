@@ -40,14 +40,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-               <!-- <EditText
+                <EditText
                     android:id="@+id/edtxt_SetSentance"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textStyle="bold"
-                    android:hint="Sentence Will Set Here"/>-->
+                    android:hint="Sentence Will Set Here"/>
                 <!--<TextView
                     android:id="@+id/txt_SetSentance"
                     android:layout_marginTop="10dp"
@@ -59,14 +59,10 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_answer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </android.support.v7.widget.RecyclerView>
-                <Button
-                    android:id="@+id/btn_check"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CHECK"
-                    android:layout_gravity="bottom|center"/>
+                    android:background="@color/light_green">
+                </android.support.v7.widget.RecyclerView>
+
                 <!--<LinearLayout
                     android:id="@+id/mylinearlayout"
                     android:layout_width="match_parent"
@@ -80,7 +76,12 @@
                     android:layout_height="wrap_content"
                     android:background="@color/light_gray">
                 </android.support.v7.widget.RecyclerView>
-
+                <Button
+                    android:id="@+id/btn_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CHECK"
+                    android:layout_gravity="bottom|center"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

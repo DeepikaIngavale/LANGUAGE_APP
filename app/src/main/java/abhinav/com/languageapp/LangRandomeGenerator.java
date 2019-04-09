@@ -51,7 +51,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
         //txt_SetSentance=(TextView)findViewById(R.id.txt_SetSentance);
-       // edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
+        edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
         imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
         //mylinearlayout=(LinearLayout)findViewById(R.id.mylinearlayout);
         rv_answer = (RecyclerView) findViewById(R.id.rv_answer);
@@ -175,46 +175,43 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         }
         if (view.getId() == R.id.btn_check)
         {
-           /* String Sentence = arrayList.get(0).getSentence();
-            EdtSentence=txt_SetSentance.getText().toString().trim();
+            String Sentence = arrayList.get(0).getSentence();
+            for(int i=0;i<al_selected_words.size();i++)
+            {
+                //EdtSentence=txt_SetSentance.getText().toString().trim();
+                edtxt_SetSentance.append(al_selected_words.get(i).getOder()+" ");
+            }
+            EdtSentence=edtxt_SetSentance.getText().toString().trim();
             Words = Sentence.split(" ");
             Word = EdtSentence.split(" ");
-
-            if(!EdtSentence.equals(""))
+            if (Word.length != Words.length)
             {
-                if (Word.length != Words.length)
+                flag = false;
+                Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                for(int i=0;i< Word.length;i++)
                 {
-                    flag = false;
-                    Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
-                }
-                else
-
-                {
-                    for(int i=0;i< Word.length;i++)
+                    for (int j=0;j<Words.length;j++)
                     {
-                        for (int j=0;j<Words.length;j++)
+                        if(Word[i].equalsIgnoreCase(Words[j]))
                         {
-                            if(Word[i].equalsIgnoreCase(Words[j]))
-                            {
-                                iCnt++;
-                            }
+                            iCnt++;
                         }
                     }
-                    if(Word.length==iCnt)
-                    {
-                        Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
+                }
+                if(Word.length==iCnt)
+                {
+                    Toast.makeText(this, "The sentence is correct", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(this, "Sentence is not correct", Toast.LENGTH_SHORT).show();
                     }
                 }
                 iCnt=0;
-                }
-                else
-                {
-                    Toast.makeText(this, "Enter Sentence", Toast.LENGTH_SHORT).show();
-                }*/
+            edtxt_SetSentance.setText("");
            /* if(temp<arrayList.size()-1)
             {
                 temp++;
