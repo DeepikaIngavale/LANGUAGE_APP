@@ -211,13 +211,14 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                     }
                 }
                 iCnt=0;
-            edtxt_SetSentance.setText("");
+
            /* if(temp<arrayList.size()-1)
             {
                 temp++;
                 edtxt_SetSentance.setText("");
             }*/
         }
+        edtxt_SetSentance.setText("");
     }
     @Override
     public void onDestroy()
