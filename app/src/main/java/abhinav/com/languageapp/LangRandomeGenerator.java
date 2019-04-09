@@ -3,6 +3,9 @@ package abhinav.com.languageapp;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +37,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     ArrayList<SentenceBean>   arrayListWordNew;
     int temp=0;
     int i,iCnt;
+    RecyclerView rv_answer,rv_question;
+    CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,10 +48,12 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         arrayList = new ArrayList<>();
 
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
-        txt_SetSentance=(TextView)findViewById(R.id.txt_SetSentance);
+        //txt_SetSentance=(TextView)findViewById(R.id.txt_SetSentance);
        // edtxt_SetSentance=(EditText) findViewById(R.id.edtxt_SetSentance);
         imgv_speak=(ImageView) findViewById(R.id.imgv_speak);
-        mylinearlayout=(LinearLayout)findViewById(R.id.mylinearlayout);
+        //mylinearlayout=(LinearLayout)findViewById(R.id.mylinearlayout);
+        rv_answer = (RecyclerView) findViewById(R.id.rv_answer);
+        rv_question = (RecyclerView) findViewById(R.id.rv_question);
         btn_check=(Button) findViewById(R.id.btn_check);
 
         btn_check.setOnClickListener(this);
@@ -94,7 +101,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         final TextView[] myTextViews = new TextView[arrayListWord.size()]; // create an empty array;
         arrayListWordNew=getRandomElement(arrayListWord,N);
-        for (int i = 0; i < arrayListWordNew.size(); i++)
+       /* for (int i = 0; i < arrayListWordNew.size(); i++)
         {
             // create a new textview
             final TextView rowTextView = new TextView(this);
@@ -123,9 +130,13 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             // save a reference to the textview for later
             myTextViews[i] = rowTextView;
 
-        }
+        }*/
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
+        rv_question.setLayoutManager(staggeredGridLayoutManager);
 
-
+        customAdapter =new CustomAdapter(LangRandomeGenerator.this,arrayListWordNew,
+                rv_question.getId());
+        rv_question.setAdapter(customAdapter);
     }
 
     @Override
@@ -142,7 +153,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         }
         if (view.getId() == R.id.btn_check)
         {
-            String Sentence = arrayList.get(0).getSentence();
+           /* String Sentence = arrayList.get(0).getSentence();
             EdtSentence=txt_SetSentance.getText().toString().trim();
             Words = Sentence.split(" ");
             Word = EdtSentence.split(" ");
@@ -180,7 +191,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                 else
                 {
                     Toast.makeText(this, "Enter Sentence", Toast.LENGTH_SHORT).show();
-                }
+                }*/
            /* if(temp<arrayList.size()-1)
             {
                 temp++;
