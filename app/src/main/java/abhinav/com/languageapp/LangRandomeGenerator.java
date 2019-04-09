@@ -35,10 +35,11 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     ArrayList<SentenceBean> arrayList;
     ArrayList<SentenceBean>   arrayListWord;
     ArrayList<SentenceBean>   arrayListWordNew;
+    ArrayList<SentenceBean>   al_selected_words;
     int temp=0;
     int i,iCnt;
     RecyclerView rv_answer,rv_question;
-    CustomAdapter customAdapter;
+    CustomAdapter customAdapter,customAdapterA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +47,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lang_randome_generator);
         arrayList = new ArrayList<>();
+        al_selected_words = new ArrayList<>();
 
         txt_Sentance=(TextView)findViewById(R.id.txt_Sentance);
         //txt_SetSentance=(TextView)findViewById(R.id.txt_SetSentance);
@@ -58,6 +60,8 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         btn_check.setOnClickListener(this);
         imgv_speak.setOnClickListener(this);
+        rv_answer.setOnClickListener(this);
+        rv_question.setOnClickListener(this);
         db = new DataBaseHelper(LangRandomeGenerator.this);
 
         /*db.Sentences();
@@ -101,6 +105,10 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
 
         final TextView[] myTextViews = new TextView[arrayListWord.size()]; // create an empty array;
         arrayListWordNew=getRandomElement(arrayListWord,N);
+
+        setRandomListAdapter();
+        setAnswerListAdapter();
+
        /* for (int i = 0; i < arrayListWordNew.size(); i++)
         {
             // create a new textview
@@ -131,8 +139,22 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
             myTextViews[i] = rowTextView;
 
         }*/
+    }
+
+    public void setAnswerListAdapter()
+    {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
-        rv_question.setLayoutManager(staggeredGridLayoutManager);
+        rv_answer.setLayoutManager(staggeredGridLayoutManager);
+
+        customAdapterA =new CustomAdapter(LangRandomeGenerator.this, al_selected_words,
+                rv_answer.getId(),LangRandomeGenerator.this);
+        rv_answer.setAdapter(customAdapterA);
+    }
+
+    public void setRandomListAdapter()
+    {
+        StaggeredGridLayoutManager staggeredGridLayoutManagerQ = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
+        rv_question.setLayoutManager(staggeredGridLayoutManagerQ);
 
         customAdapter =new CustomAdapter(LangRandomeGenerator.this,arrayListWordNew,
                 rv_question.getId(),LangRandomeGenerator.this);
@@ -166,6 +188,7 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
                     Toast.makeText(this, "The Sentence Is Not Correct", Toast.LENGTH_SHORT).show();
                 }
                 else
+
                 {
                     for(int i=0;i< Word.length;i++)
                     {
@@ -233,8 +256,22 @@ public class LangRandomeGenerator extends AppCompatActivity implements View.OnCl
     @Override
     public void onRecyclerItemClicked(int recycler_id, int position, Object item)
     {
-        Toast.makeText(this, "Clicked Position "+position, Toast.LENGTH_SHORT).show();
+        if(recycler_id==R.id.rv_answer)
+        {
+            arrayListWordNew.add(al_selected_words.get(position));
+            al_selected_words.remove(position);
+            setRandomListAdapter();
+            setAnswerListAdapter();
+        }
+        else
+        {
+            al_selected_words.add(arrayListWordNew.get(position));
+            arrayListWordNew.remove(position);
+            setAnswerListAdapter();
+            setRandomListAdapter();
+        }
     }
+
 }
 
 
